@@ -8,14 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "9f19ea1e7d474be3",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {}
-            }
-          },
-          {
             "id": "c521c3db3e7dcc2a",
             "type": "leaf",
             "state": {
@@ -34,6 +26,18 @@
               "type": "markdown",
               "state": {
                 "file": "2. Stack di rete.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "18e4635b932f3514",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "3. Rete LAN.md",
                 "mode": "source",
                 "source": false
               }
@@ -69,7 +73,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "adattatrice",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -86,7 +90,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -106,7 +111,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2. Stack di rete.md",
+                "file": "3. Rete LAN.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +128,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2. Stack di rete.md",
+                "file": "3. Rete LAN.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -146,7 +151,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2. Stack di rete.md"
+                "file": "3. Rete LAN.md"
               }
             }
           }
@@ -167,10 +172,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "4962592da6779bc1",
+  "active": "68593b626634dd9d",
   "lastOpenFiles": [
-    "Untitled.md",
     "2. Stack di rete.md",
+    "3. Rete LAN.md",
     "1. Introduzione.md"
   ]
 }
