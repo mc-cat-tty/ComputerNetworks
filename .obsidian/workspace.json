@@ -4,47 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "492e62220ff6fc7f",
+        "id": "bf0061138ec90b1a",
         "type": "tabs",
         "children": [
           {
-            "id": "c521c3db3e7dcc2a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "1. Introduzione.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "4962592da6779bc1",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2. Stack di rete.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "18e4635b932f3514",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "3. Rete LAN.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "142f9c1b68b6d403",
+            "id": "ed1d0a4cd6d1aa33",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -56,19 +20,19 @@
             }
           },
           {
-            "id": "81afaeffb07b1f19",
+            "id": "c380ff44b6cf990d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "a. Sperimentazione Marionnet.md",
+                "file": "5. IP.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -134,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "a. Sperimentazione Marionnet.md",
+                "file": "5. IP.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "a. Sperimentazione Marionnet.md",
+                "file": "5. IP.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "a. Sperimentazione Marionnet.md"
+                "file": "5. IP.md"
               }
             }
           }
@@ -195,14 +159,18 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "81afaeffb07b1f19",
+  "active": "c380ff44b6cf990d",
   "lastOpenFiles": [
-    "n.md",
-    "a. Sperimentazione Marionnet.md",
-    "ARP.md",
     "4. Ethernet.md",
+    "5. IP.md",
+    "Redundancy.png",
+    "TreeNet.png",
     "2. Stack di rete.md",
+    "5..md",
+    "3. Rete LAN.md",
     "1. Introduzione.md",
-    "3. Rete LAN.md"
+    "a. Sperimentazione Marionnet.md",
+    "n.md",
+    "ARP.md"
   ]
 }
