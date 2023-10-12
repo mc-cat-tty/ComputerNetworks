@@ -16,6 +16,10 @@ ifconfig eth0 0 up # sopra in versione breve
 Come capire cosa succede a livello MAC?
 - posso vedere la ARP table: `arp`, `ip neigh` (ci dà più info: STALE, REACHABLE, DELAY)
 
+```
+ip n flush all
+```
+
 *lladdr* significa Link-layer address.
 #Nota alcuni SO possono scegliere di inviare l'arp request in unicast per validare un'entry della ARP table
 
@@ -39,7 +43,12 @@ Lettura info:
 
 #Nota differenza tra [ARP] rinnovo (spesso unicast: se rispondono rinnovo, altrimenti invio broadcast) vs discovery
 
+Transizione da modalità normale a promiscua:
+```
+dmesg -w
+```
 
+# Tmux
 Per monitorare il traffico sulla propria macchina usiamo `tmux`
 Good practice per sessioni remote: lavorare su terminale `tmux`, che è un processo locale, quindi anche in caso di terminazione della connessione il processo rimarrà vivo -> **detachment** del terminale.
 Modalità comandi accessibile con Ctrl-B:
@@ -74,6 +83,36 @@ iface eth0 inet static
  address 192.168.1.1/24
 ```
 
-Il file di configurazione viene riletto lanciando `ifup eth0`. Il comando `ifdown eth0` si disattiva la configurazione permanente. Se `ifup`, `ifdown` e `ifconfig` vengono usati in maniera interlacciata il comportamento corretto non è assicurato: `ifup` e `ifdown` usano file temporanei per mantenere in memoria lo stato dlel'interfaccia.
+Il file di configurazione viene riletto lanciando `ifup eth0`. Il comando `ifdown eth0` si disattiva la configurazione permanente. Se `ifup`, `ifdown` e `ifconfig` vengono usati in maniera interlacciata il comportamento corretto non è assicurato: `ifup` e `ifdown` usano file temporanei per mantenere in memoria lo stato dell'interfaccia.
 
-Per la lettura della configurazione a tempo di boot (automatica) serve aggiungere la riga: `auto eth0s`
+Per la lettura della configurazione a tempo di boot (automatica) serve aggiungere la riga: `auto eth0`
+
+#Nota: di base, nell'output di `ifconfig`, appaiono solo le interfacce attive, per questo serve specificare l'interfaccia di cui vogliamo vedere lo stato se non attiva.
+
+# Hostnames
+> Risoluzione locale degli indirizzi di rete
+
+Inserisco in `/etc/hosts/:
+```
+127.0.0.1 h1
+192.168.1.1 h1  # Conflitto
+192.168.1.2 h2
+192.168.1.3 h3 pippo pluto
+```
+
+#Nota un indirizzo può avere nomi multipli, come nel caso di *h3*
+#Nota posso scoprire come viene risolto un conflitto tipo quello di *h1* sia sperimentalmente (provo ad eseguire il ping) oppure mediante il manuale
+
+Quando viene letto `/etc/hosts`? lo scopro con `strace`
+
+Traggo beneficio anche con l'utilizzo `tcpdump` -> si motiva l'opzione `-n` (non interpretare gli IP mediante `/etc/hosts`). `-nn` è un non-interpretare ancor più rigida
+
+Questo metodo non è scalabile, 
+# Namespace Switch
+File `/etc/nsswitch.conf`
+
+Con quale priorità risolvo gli hostnames? Il file di configurazione contiene `hosts: files dns` che impone l'ordine:
+1. file del sistema operativo
+2. sistema DNS (normalmente rimosso nei sistemi connessi a internet)
+
+#Prova a rimuovere la entry `dns`
