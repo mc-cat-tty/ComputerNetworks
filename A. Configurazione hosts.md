@@ -116,3 +116,19 @@ Con quale priorità risolvo gli hostnames? Il file di configurazione contiene `h
 2. sistema DNS (normalmente rimosso nei sistemi connessi a internet)
 
 #Prova a rimuovere la entry `dns`
+
+# Approfondimento
+![[PendingIfArp.png]]
+
+```
+root@h2:~# ip n
+192.168.2.1 dev ethe lladdr 02:04:06:b1:33:62 STALE
+192.168.1.1 dev etho Llador 02:04:06:b1:33:62 STALE
+```
+ 
+ *h2* riesce a pingare eth1 - anche con arp - passando per l'interfaccia *eth0*. Il "vicinato" di *h2* consiste quindi in 2 dispositivi di LV3 mappati sullo stesso indirizzo LV2 (h2n per la precisione).
+## Note
+- Con le due if eth0 e eth1 connesse allo stesso switch la popolazione dell'ARP cache non è consistente -> se pingo da h2 in base all'ordine di risposta (dato che rispondono entrambe le if di h1) popolo la tabella in modo diverso
+- Quando eth1 è disconnessa si riesce comunque a pingare il suo IP passando per eth0. Com'è possibile? il protocollo ARP non è gestito dalla NIC - anche mediante il campo di multiplazione *type* ? la richiesta ARP viene passata al SO?? nella ARP cache sono consentiti più IP address per ogni MAC address?!
+
+https://security.stackexchange.com/questions/112683/linux-responds-to-arp-requests-for-other-interfaces-could-this-be-a-security-v

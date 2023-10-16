@@ -30,21 +30,9 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "8a17769bb1a8be01",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "B. Dispositivi di LV2.md",
-                "mode": "source",
-                "source": false
-              }
-            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -110,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "B. Dispositivi di LV2.md",
+                "file": "A. Configurazione hosts.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "B. Dispositivi di LV2.md",
+                "file": "A. Configurazione hosts.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "B. Dispositivi di LV2.md"
+                "file": "A. Configurazione hosts.md"
               }
             }
           }
@@ -171,12 +159,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "8a17769bb1a8be01",
+  "active": "c380ff44b6cf990d",
   "lastOpenFiles": [
-    "A. Configurazione hosts.md",
     "B. Dispositivi di LV2.md",
+    "A. Configurazione hosts.md",
     "4. Ethernet.md",
     "5. IP.md",
+    "Assets/PendingIfArp.png",
     "Assets",
     "Assets/Redundancy.png",
     "Assets/TreeNet.png",
