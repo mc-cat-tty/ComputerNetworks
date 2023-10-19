@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "6d1f09ab0e16fd4a",
+        "id": "304ff5a4d2dd86ef",
         "type": "tabs",
         "children": [
           {
-            "id": "213e6be3a65cde91",
+            "id": "4c97b63ee89352b4",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "5. IP.md",
+                "file": "C. Router e subnetting.md",
                 "mode": "source",
                 "source": false
               }
@@ -69,7 +69,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "1f83f11912b068ce",
@@ -85,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "5. IP.md",
+                "file": "C. Router e subnetting.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "5. IP.md",
+                "file": "C. Router e subnetting.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "5. IP.md"
+                "file": "C. Router e subnetting.md"
               }
             }
           }
@@ -134,7 +135,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -146,11 +148,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "213e6be3a65cde91",
+  "active": "4c97b63ee89352b4",
   "lastOpenFiles": [
+    "Esercizi/Proj3_Subnetting.mar",
     "5. IP.md",
+    "C. Router e subnetting.md",
     "Untitled 1.md",
-    "Untitled.md",
     "A. Configurazione hosts.md",
     "B. Dispositivi di LV2.md",
     "H.md",
