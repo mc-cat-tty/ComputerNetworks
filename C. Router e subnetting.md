@@ -97,4 +97,9 @@ Esistono due argomenti passabili a `route`:
 - `-net` usata se non esistono regole più specifiche, come sotto
 - `-host` permette di specificare la route per un host specifico
 
+## Default gateway
+```bash
+route add default gw ADDR/CIDR
+```
+
 #Esercizio finale slide
