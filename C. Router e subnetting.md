@@ -97,9 +97,43 @@ Esistono due argomenti passabili a `route`:
 - `-net` usata se non esistono regole più specifiche, come sotto
 - `-host` permette di specificare la route per un host specifico
 
+`... -net default gw ...` specifica il default gateway
 ## Default gateway
 ```bash
 route add default gw ADDR/CIDR
 ```
 
 #Esercizio finale slide
+
+
+## Indirizzi /32
+Gli indirizzi ip con subnet mask 255.255.255.255 sono assegnati a host isolati, quando non si vogliono assegnare indirizzi contigui a quest'ultimo.
+
+# Real World Gateway
+Il RWA - Real World Access - su Marionnet ci consente di connettere un host a Internet.
+Offre DHCP e DNS.
+
+È considerato un router: cavo cross tra host e RWA, cavo straight tra switch e RWA
+
+Acquisizione dinamica IP attraverso protocollo DHCP:
+```bash
+dhclient -i eth0
+```
+
+Ora posso lancuare:
+```bash
+wget --no-check-certificate www.unimore.it
+```
+
+#Nota che è un collegamento di livello 2
+#Attenzione corrette regole di routing
+
+# Cicli
+In presenza di cicli il router che scarta il pacchetto lancia l'errore `Time to live exceeded`.
+
+## IP Cal e IP route get
+```bash
+ip route get ADDRESS
+```
+
+Risponde con la rotta che utilizza per raggiungere l'indirizzo richiesto.

@@ -1,4 +1,4 @@
-Lezione interlacciata con [[9. VLAN]].
+Lezione interlacciata con [[10. VLAN]].
 
 # Indirizzi IP mutlipli
 ## Approccio moderno

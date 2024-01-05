@@ -79,3 +79,5 @@ iface eth2 inet static
 ```
 
 Il comando `ifup -a` esegue tutte le direttive del file `interfaces` -> poco consigliato per troubleshooting sulla singola interfaccia
+
+#Attenzione Usa il comando `ifconfig ethXXX 0` per pulire lo stato dell'interfaccia 

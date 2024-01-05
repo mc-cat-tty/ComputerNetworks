@@ -43,7 +43,7 @@ Lettura info:
 
 #Nota differenza tra [ARP] rinnovo (spesso unicast: se rispondono rinnovo, altrimenti invio broadcast) vs discovery
 
-Transizione da modalità normale a promiscua:
+Transizione da modalità normale a promiscua (all'avvio di tcpdump):
 ```
 dmesg -w
 ```
@@ -54,7 +54,7 @@ Good practice per sessioni remote: lavorare su terminale `tmux`, che è un proce
 Modalità comandi accessibile con Ctrl-B:
 - Detachment - *d*
 - `tmux attach`  riprende la sessione staccata
-- split orizzontale: *""*
+- split orizzontale: *"*
 - split verticale: *%*
 - navigazione tra split: frecce
 - creazione tab - *c*
@@ -107,7 +107,7 @@ Quando viene letto `/etc/hosts`? lo scopro con `strace`
 
 Traggo beneficio anche con l'utilizzo `tcpdump` -> si motiva l'opzione `-n` (non interpretare gli IP mediante `/etc/hosts`). `-nn` è un non-interpretare ancor più rigida
 
-Questo metodo non è scalabile, 
+Questo metodo non è scalabile, sforzo che cresce in N^2 con il numero di host, vedremo DNS.
 # Namespace Switch
 File `/etc/nsswitch.conf`
 
