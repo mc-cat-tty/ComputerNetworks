@@ -7,7 +7,7 @@ ip n flush all
 ip addr add 192.168.1.1 dev eth0
 ```
 
-`ip` è un tool più moderno: struttura a predicati/verbi.
+`ip` è un tool più moderno: struttura a predicati/verbi/sottocomandi.
 
 Se voglio eliminare l'indirizzo: `ip addr del 192.168.1.1/32 dev eth0`
 
@@ -32,7 +32,7 @@ Sono consultabili con `route -n` o con il più nuovo:
 ip route
 ```
 
-Per ogni interfaccia con indirizzo IP viene creata automaticamente una entry con gateway *0.0.0.0* (formato `route`) che è un indirizzo IP non valido, quindi sta ad indicare che la rete è automaticamente raggiungibile. `ip route` ci indica la stessa cosa con la nomenclatura `scope link` (è all'interno di uno scope raggiungibile mediante protocollo h2n); questo comando ci indica anche con quale indirizzo IP sorgente escono i pacchetti dall'interfaccia, utile nel caso in cui **una interfaccia di rete abbia più di un indirizzo IP**. È un tool più nuovo avvezzo al caso di IPv6, in cui avere indirizzi IP multipli sull'interfaccia è la norma.
+Per ogni interfaccia con indirizzo IP viene creata automaticamente una entry con gateway *0.0.0.0* (formato `route`) che è un indirizzo IP non valido, quindi sta ad indicare che la rete è automaticamente raggiungibile. `ip route` ci indica la stessa cosa con la nomenclatura `scope link` (è all'interno di uno scope raggiungibile mediante protocollo h2n); questo comando ci indica anche con quale indirizzo IP sorgente escono i pacchetti dall'interfaccia, utile nel caso in cui **una interfaccia di rete abbia più di un indirizzo IP**. È un tool più nuovo avvezzo all'uso di IPv6, in cui avere indirizzi IP multipli sull'interfaccia è la norma.
 
 Cosa succede se scordo la netmask in ifconfig? viene usata la notazione classful. Verifica con la tabella di routing (`route` mostra dotted notation, mentre `ip route` mostra la notazione CIDR)
 
@@ -40,9 +40,9 @@ Cosa succede se scordo la netmask in ifconfig? viene usata la notazione classful
 #Nota differenza tra *Network unreachable* e *Host unreachable*. Nel primo caso non genero neanche traffico; nel secondo vanno in timeout le richieste ARP.
 
 Errori di livello IP:
-- unknown network -> non ho default gateway
-- unreachable first hop -> non riesco a risolvere l'indirizzo IP del default gateway
-- unreachable network -> contatto il router ma non riesco a raggiungere l'host appartenente alla rete che vorrei
+- **unknown network** -> non ho default gateway
+- **unreachable first hop** -> non riesco a risolvere l'indirizzo IP del default gateway
+- **unreachable network** -> contatto il router ma non riesco a raggiungere la rete a cui appartiene l'host che vorrei contattare
 
 # Routing su Linux
 Un nodo intermedio scarta di base i pacchetti, se l'indirizzo IP di destinazione non è il proprio. Per cambiare questo comportamento si veda sotto.
@@ -52,12 +52,12 @@ Per ottenere lo stato:
 sysctl net.ipv4.ip_forward
 ```
 
-Per scrivere un valore:
+Per scrivere un valore (alla stregua di scrivere su procfs, non è permanente):
 ```bash
 sysctl -w net.ipv4.ip_forward=1
 ```
 
-Per rendere l'opzione permanente si modifica il file `/etc/sysctl.conf`; si deve aggiornare la configurazione runtime: `sysctl -p`
+Per rendere l'opzione permanente si modifica il file `/etc/sysctl.conf`; si deve aggiornare la configurazione runtime: `sysctl -p`.
 
 Su H1:
 ```bash
@@ -103,24 +103,21 @@ Esistono due argomenti passabili a `route`:
 route add default gw ADDR/CIDR
 ```
 
-#Esercizio finale slide
-
-
 ## Indirizzi /32
 Gli indirizzi ip con subnet mask 255.255.255.255 sono assegnati a host isolati, quando non si vogliono assegnare indirizzi contigui a quest'ultimo.
 
-# Real World Gateway
+# Real World Access
 Il RWA - Real World Access - su Marionnet ci consente di connettere un host a Internet.
-Offre DHCP e DNS.
+Offre DHCP e DNS. Se configurato come default gateway per il dispositivo che vuole uscire su Internet, fornisce connettività.
 
-È considerato un router: cavo cross tra host e RWA, cavo straight tra switch e RWA
+È considerato un router.
 
 Acquisizione dinamica IP attraverso protocollo DHCP:
 ```bash
 dhclient -i eth0
 ```
 
-Ora posso lancuare:
+Ora posso lanciare:
 ```bash
 wget --no-check-certificate www.unimore.it
 ```

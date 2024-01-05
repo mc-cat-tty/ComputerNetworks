@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "B. Dispositivi di LV2.md",
+                "file": "F. Socket Status.md",
                 "mode": "source",
                 "source": false
               }
@@ -69,7 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 287.50390243530273
   },
   "right": {
     "id": "1f83f11912b068ce",
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "B. Dispositivi di LV2.md",
+                "file": "F. Socket Status.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "B. Dispositivi di LV2.md",
+                "file": "F. Socket Status.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "B. Dispositivi di LV2.md"
+                "file": "F. Socket Status.md"
               }
             }
           }
@@ -148,31 +148,31 @@
   },
   "active": "38c2b33f04c8f213",
   "lastOpenFiles": [
-    "A. Configurazione hosts.md",
-    "B. Dispositivi di LV2.md",
+    "E. Traceroute.md",
+    "F. Socket Status.md",
+    "7. ICMP.md",
     "13. Protocolli di comunicazione sicuri.md",
+    "C. Router e subnetting.md",
+    "D. Wireshark.md",
+    "B. Dispositivi di LV2.md",
+    "I. Principi di sicurezza delle reti.md",
+    "H. NAT.md",
+    "Untitled.md",
+    "A. Configurazione hosts.md",
     "14. Posta elettronica.md",
     "6. AS e routing su scala geografica.md",
     "9. Timeout e sliding window.md",
     "8. TCP e UDP.md",
-    "Untitled.md",
     "N. User Mode Linux.md",
     "2. Stack di rete.md",
     "1. Introduzione.md",
     "11. DNS.md",
     "12. HTTP.md",
-    "D. Wireshark.md",
-    "E. Traceroute.md",
-    "F. Socket Status.md",
-    "C. Router e subnetting.md",
-    "H. NAT.md",
-    "I. Principi di sicurezza delle reti.md",
     "L. DHCP.md",
     "M. IPv6.md",
     "Esercizi/Proj7_IPv6.mar",
     "ls",
     "Proj7_IPv6.mar",
-    "7. ICMP.md",
     "Esercizi/Proj5_NAT.mar",
     "Esercizi/Proj3_Estensione.mar",
     "G. VLAN.md",

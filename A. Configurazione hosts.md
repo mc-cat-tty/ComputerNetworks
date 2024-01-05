@@ -70,6 +70,8 @@ Forza l'utilizzo del protocollo arp per pingare la presenza di un dispositivo ne
 
 È un tool di basso livello, non fa controlli su presenza del dispositivo o simili. Utile per aggirare stealth response sul livello 3.
 
+Senza aver configurato L3: `arping -0Bi eh0`
+
 # Configurazione di rete permanente
 #Attenzione: disattiva la configurazione temporanea prima di iniziare quella permanente
 
