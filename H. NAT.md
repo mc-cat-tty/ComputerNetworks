@@ -1,9 +1,10 @@
 # Introduzione
->Il NATting è una tecnica che permette di mappare più indirizzi IP privati in un unico indirizzo IP pubblico, mediante un router "di bordo".
+>Il NATting è una tecnica che permette di mappare più indirizzi IP privati in un unico indirizzo IP pubblico, mediante un router "di bordo". Una rete che risponde a queste caratteristiche - in cui il traffico esce mediante un unico percorso comune - è definita dall'RFC _stub network_
 
+#Vedi RFC1631
 #Nota non tutte le reti fanno NAT, soprattutto a livello enterprise
 
-Come funziona? l'idea di base è modificare il SRC IP per i pacchetti in uscita e il DST IP per i pacchetti in inetrata
+Come funziona? l'idea di base è modificare il SRC IP per i pacchetti in uscita e il DST IP per i pacchetti in in entrata -> compito della **NAT box**
 ## Internals
 Non si riesce a fare NATting coinvolgendo solamente il livello 3.
 
@@ -41,7 +42,7 @@ Distrugge la semantica della comunicazione peer-to-peer / host-to-host.
 ## Hooks
 Su Linux esistono due tool per lavorare con packet filtering, inspection e NAT:
 - `iptables`
-- `nftables`
+- `nftables` (+ moderno)
 
 ```
 iface IN -x-> logica di routing -x-> ROUTING -x-> iface OUT
@@ -55,9 +56,9 @@ Su ogni arco marcato con `x` possono essere impostati degli *hook*
 ## Chains
 Ad ogni hook possono essere associate più regole, dette **catena** (chain), che vengono disambiguate mediante un'esecuzione **sequenziale** delle regole appartenenti alla catena.
 ## Tabelle
-Le tabelle di iptables raggruppano le catene in base alla funzionalità su cui agiscono le catena. Esistono 3 tabelle:
+Le tabelle di iptables raggruppano le catene in base alla funzionalità su cui agiscono le catene. Esistono 3 tabelle:
 - **Filter**: filtraggio di pacchetti, ovvero cosa accettare e cosa scartare
-- **Mangle**: marking di pacchetti e modifiche ai campi TOS e TTL
+- **Mangle**: marking di pacchetti e modifiche ai campi ToS e TTL
 - **Nat**: trasformazione di pacchetti per le funzionalità di:
 	- Masquerading
 	- Port forwarding
@@ -73,7 +74,7 @@ La tabella *nat* definisce tre catene di default:
 
 ```
 iface IN -1-> logica di routing ---> ROUTING -2-> iface OUT
-                 |x                    ^
+                 |                     ^
                  v                     |
           processi locali  <---  logica di routing
                            -3->
@@ -98,16 +99,17 @@ Implicitamente la tabella è quella di `filter`
 ```bash
 iptables -t nat -L [-vn]
 ```
-- -v - verbose
-- -n - non risolvere
+- `-v` - verbose
+- `-n `- non risolvere
 
 ```bash
-iptables -t nat -A POSTROUTING -o eth1 -j SNAT --to-source 2.2.2.2
+iptables -t nat -A POSTROUTING -o eth1 -j SNAT --to-source 2.2.2.2  # Statico
+iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
 ```
 
 #Nota che le opzioni non sono simmetriche. Per esempio `-i` non può essere usato per POSTROUTING perché il SO non conosce da dove proviene il pacchetto
 
-- -s SOURCE_NET - posso specificare opzioni di applicazione in base alla rete di ingresso
+- `-s` SOURCE_NET - posso specificare opzioni di applicazione in base alla rete di ingresso
 
 #Vedi come entrano ed escono i pacchetti sulle due interfacce
 

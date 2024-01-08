@@ -5,7 +5,7 @@
 
 Le tecniche di segmentazione e segregazione possono essere forzate con un diverso numero di tecniche in base ai protocolli in uso.
 
->**Defence-in-depth**: stratificazione della sicurezza, su diversi livelli (eg. host e rete). Modello _a cipolla_.
+>**Defense-in-depth**: stratificazione della sicurezza, su diversi livelli (eg. host e rete). Modello _a cipolla_.
 
 ## L2 - VLAN
 Le VLAN sono una tecnica di segmentazione L2.
@@ -48,20 +48,27 @@ Protocolli supportati:
 - application gateway
 
 Tipo di analisi:
-- static/**stateless**: non conosce lo stato della connessione
-- **stateful**: eg. traffico asimmetrico di una connessione TCP, sessioni HTTP mediante cookie
+- static/**stateless**: non conosce lo stato della connessione; comportamento ad eventi; decisioni di filtraggio prese sulla base delle informazioni contingenti al pacchetto.
+- **stateful**: eg. traffico asimmetrico di una connessione TCP, sessioni HTTP mediante cookie; il pacchetto è analizzato sulla base di informazioni contenute e contesto; esiste la nozione di connessione; permette di filtrare appplicazioni con stati complessi.
 
 # Firewall
-In base al dispositivo su cui il firewall è installato, il dispositivo prende il nome di:
-- **screening router**: tipicamente il fw è installato sul boarder router. Implementa regole semplici di filtraggio (L3/4, no DPI) ed esegue una prima scrematura.
-- **proxy firewall**: lavorano a livello applicativo e hanno una comprensione integrale del traffico che gira in rete. Si mette in mezzo alla comunicazione e applica regole di analisi.
-- **stealth router**: assomiglia a uno screening router, ma è pensato per non essere rilevabile all'interno della rete. Considerato alla stregua di un dispositivo L2 (sono simili ai router, ma non sono facilmente rilevabili). Eg. non decrementa il TTL. Utile per evitare attacchi al firewall stesso.
+## Deployment
+I firewall abilitano alla segmentazione della rete. Possono essere posizionati strategicamente su dispositivi di rete (filter **network traffic**) o su dispositivi terminali (filter **host traffic**).
 
->Il **proxy** è un dispositivo di rete che si interpone nelle comunicazioni, gestendo le connessioni verso i due capi.
+In base al dispositivo su cui il firewall è installato, il dispositivo prende il nome di:
+- **screening router**: tipicamente il fw è installato sul boarder router. Implementa regole semplici di filtraggio (L3/4, no DPI) ed esegue una prima scrematura. Filtra secondo una logica stateful.
+- **proxy firewall**: lavorano a livello applicativo e hanno una comprensione integrale del traffico che gira in rete. Si mette in mezzo alla comunicazione e applica regole di analisi. Esegue un'ispezione profonda del traffico.
+- **stealth router**: assomiglia a uno screening router, ma è pensato per non essere rilevabile all'interno della rete, per esempio per fare _intrusion detection_. Considerato alla stregua di un dispositivo L2 (sono simili ai router, ma non sono facilmente rilevabili). Eg. non decrementa il TTL. Utile per evitare attacchi al firewall stesso.
+
+>Il **proxy** è un dispositivo di rete che si interpone nelle comunicazioni, gestendo le connessioni verso i due capi, a livello applicativo
 
 #Nota cifrando le comunicazioni gli strumenti di analisi intermedi (firewall) non possono ispezionare i payload dei pacchetti. Usare un proxy in questo caso può essere la soluzione.
 
->**Dual homed firewall**: firewall che con connessione doppia alla rete. Divisione della rete in trusted e untrusted.
+## Network design patterns
+- **single screening router**: router di bordo + screening; scala male, niente segregazione della rete interna.
+- **dual-home router**: firewall dedicato con due interfacce - trusted and untrusted
+- **screened-host gateway / bastion host**: estende l'architettura vista sopra aggiunendo un host per ispezionare comunicazioni tra trusted and untrusted network al livello applicativo; aggiunge un livello di sicurezza e migliora la scalabilità: lo screening router scarta il grosso dei pacchetti (just packet inspection), mentre il bastion host filtra a livello applicativo (maggiori risorse) quelli che passano la prima linea di difesa. Alcune sottoreti, come una DMZ, possono evitare il bastion host e passare solo attraverso il packet filtering.
+- **screened subset**: difesa multi-strato; combina quanto visto fin'ora inserendo uno screening router al confine di una o più reti interne.
 
 >**Bastion host**: host che implementa funzionalità di proxy firewall. Si trova a livello degli host e tutto il traffico degli utenti deve passare attraverso ad esso. Espone pochi servizi per ridurre la superficie di attacco.
 
@@ -101,10 +108,10 @@ Le policy che possiamo scegliere sono (`-P`):
 - `INPUT DROP` -> *deny all*
 
 #Attenzione instaurare una connessione TCP richiede non solo pacchetti uscenti, ma anche entranti. An input policy on the firewall could affect TCP connections. UDP connections are not affected by input policies.
-
+## Eccezioni
 Possiamo aggiungere delle eccezioni alle regole di default specificando **condizione** e **target**.
 
-Target (`-t`):
+Target (`-j):
 - `ACCEPT`
 - `REJECT`
 - `DROP`
@@ -115,11 +122,14 @@ Condizioni:
 - `-s <source-ip/net>`
 - `-d <destination-ip/net>`
 - `-p {udp, tcp} --dport <dst-port> --sport <src-port>`
-- `-m state --state <states>` - permette di configurare condizioni basate sullo stato
+- `-m state --state <states>` - permette di configurare condizioni di match basate sullo stato
 
 Eg: `iptables ... -m state --state NEW,ESTSABLISHED -j ACCEPT`
 
 #Vedi `RELATED` state
+
+Altre condizioni utili:
+- `-p icmp --icmp-type {echo-request, echo-reply}`
 ## Permanenza regole
 Possiamo gestire la permanenza con `post-up` e `post-down` in *ifconfig*, ma esiste un tool apposito: `iptables-persistent`.
 

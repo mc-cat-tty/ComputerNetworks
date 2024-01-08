@@ -12,17 +12,25 @@ iface eth0 inet static
  post-up ip addr add XXXX/XX dev XXX
 ```
 
+Anche la seguente soluzione è valida:
+```bash
+auto eth0
+iface eth0 inet static
+ address XXXX/XX
+
+iface eth0 inet static
+ address YYYY/YY
+```
+
 ## Approccio storico
 ```bash
 auto eth0
 
 iface eth0 inet static
  address XXXX/XX
- post-up ip addr add XXXX/XX dev XXX
 
 iface eth0:0 inet static
  address XXXX/XX
- post-up ip addr add XXXX/XX dev XXX
 ```
 
 Con `eth0:0` viene creato un alias dell'interfaccia di rete 0, con tutte le conseguenze.
@@ -60,7 +68,7 @@ VLAN20
 
 Altre scelte progettuali ammissibili:
 - (seppur meno raffinata) trunk anche per H1 e H2
-- (più arzigogolata) access link con tag di default per Port 1
+- (più arzigogolata) hybrid link con tag di default per Port 1
 
 Scelte non ammissibili:
 - due access link su Port 1
@@ -77,8 +85,8 @@ vlan/addport 20 1
 ```
 
 Per una configurazione permanente serve scrivere la sequenza di comandi in *Startup configuration*.
-## Router:
-Molto simile se veniamo dall'alias:
+## Router: Linux
+Molto simile se veniamo dall'alias (configurazione permanente):
 ```
 # Trunk
 auto eth0.10 eth0.20
@@ -103,6 +111,13 @@ iface eth0.20 inet static
  address XXXX/XX
 ```
 
+Configurazione temporanea manuale:
+```bash
+ip link add link <phyif> <virtif> type vlan id <id>  # Creazione dell'if virt
+ip link del <virtif>  # Rimozione
+```
+
+#Attenzione il nome di virtif e identificativo non sono rigidamente legati tra loro. Per recuperare il VID a partire dal nome dell'interfaccia: ``grep VID /proc/net/vlan/<virtif>
 # Verifica funzionamento
 #Nota non ha senso dire che *la rete funziona* -> le VLAN riguardano un requisito non-funzionale
 
@@ -122,4 +137,4 @@ Cosa succede se faccio un arping sull'interfaccia "aggregata"?
 ```bash
 arping -0i eth0
 ```
-Dove `-0` serve per evite
+Dove `-0` serve per evitare di specificare un indirizzo sorgente

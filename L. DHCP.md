@@ -1,4 +1,6 @@
 # Introduzione
+Dynamic Host Configuration Protocol
+https://datatracker.ietf.org/doc/html/rfc2131
 # Obiettivi
 1. implementare policy di rete da parte dell'amministratore
 2. configurazione automatica dei dispositivi
@@ -6,8 +8,8 @@
 
 ## Gestione degli indirizzi
 Data una o più subnet al server DHCP:
-- assegnazione statica (manuale): il binding IP-host è contenuto del database.
-- assegnazione dinamica (automatica): l'assegnazione delle policy può cambiare. Il server decide autonomamente come distribuire gli indirizzi.
+- **assegnazione manuale**: il binding IP-host è contenuto del database.
+- **assegnazione dinamica**: l'assegnazione delle policy può cambiare. Il server decide autonomamente come distribuire gli indirizzi.
 
 # Protocollo
 ## Porte
@@ -18,27 +20,28 @@ Il **client** rimane in ascolto sulla porta **UDP 68**.
 
 ## Pacchetto
 ```
-| op | ... |
-| xid |
-| ... |
-| ciaddr |
-| yiaddr |
-| siaddr |
-| ... |
-| chadddr |
-| ... |
-| options (variabile) |
++--------------------------+
+| op | htype | hlen | hops |
+|           xid            |
+|           ...            |
+|          ciaddr          |
+|          yiaddr          |
+|          siaddr          |
+|           ...            |
+|         chadddr          |
+|           ...            |
+|    options (variabile)   |
++--------------------------+
 ```
 
-- xid - transaction ID
-- ciaddr - client IP address
-- chaddr - client hardware address - per questioni di scalabilità. Utile quando il client vuole comunicare con un server su una rete differente, dato che il MAC a livello H2N andrebbe perso
-- siaddr - server IP address
-- ....
+- op - operation code: 1 request, 2 reply
+- xid - transaction ID, scelto casualmente dal client e inserito dal server nelle risposte
+- ciaddr - client IP address. Usato in RENEW, BOUND e BINDING.
+- yiaddr - your (client) IP address. Usato dal server per proporre un indirizzo al client.
+- siaddr - (next) server IP address to use in bootstrap
+- chaddr - client hardware address - per questioni di scalabilità. Utile quando il client vuole comunicare con un server su una rete differente (vedi relay agent), dato che il MAC a livello H2N andrebbe perso
 
-#Completa diagramma e lista puntata
-
-Come fa il server a distinguere i vari host? usa lo xid
+Come fa il server a distinguere i vari host? usa lo xid. Vedi avanti
 
 Il protocollo DHCP permette anche di configurare regole come route, che non sono indirizzi IP. Queste regole aggiuntive sono definite nel campo *options*.
 ### Operations
@@ -46,6 +49,17 @@ Il campo *op* definisce il tipo di pacchetto dal punto di vista della direzione.
 - 1 da client a server
 - 2 da server a client
 
+## Messaggi
+### Client to server
+- DHCPDISCOVER: un client non configurato invia questo messaggio in broadcast; contatta il server per la prima volta
+- DHCPREQUEST: un client richiede conferma per uno degli indirizzi che gli sono stati offerti
+- DHCPDECLINE: un client rifiuta un indirizzo
+- DHCPINFORM: un client già in possesso di un indirizzo IP chiede opzioni aggiuntive
+- DHCPRELEASE: rilascio esplicito dell'indirizzp
+### Server to client
+- DHCPOFFER: proposta di un indirizzo
+- DHCPACK: accettazione di un indirizzo richiesto dal client
+- DHCPNACK: rifiuto di un indirizzo
 ## Workflow
 ### Caso comune
 ```
@@ -67,13 +81,13 @@ client                    server
 	5. dst port = UDP 67
 2. DHCPOFFER (s->c - op=2): il server fa un'offerta al client
 	1. src IP = IP del server
-	2. dst IP = yaddr, ovvero un indirizzo non ancora assegnato. Perché unicast? ha una funzionalità di test, serve a verificare se l'IP è già stato assegnato. Il server può testare in maniera differente in base alla configurazione:
+	2. dst IP = yiaddr, ovvero un indirizzo non ancora assegnato. Perché unicast? ha una funzionalità di test, serve a verificare se l'IP è già stato assegnato. Il server può testare in maniera differente in base alla configurazione:
 		1. per reti differenti: ping
 		2. per stessa rete: ARP request
 3. DHCPREQUEST (c->s): il client conosce l'IP del server
-	1. dst IP = siaddr
+	1. dst IP = broadcast, con siaddr a livello applicativo
 	2. src IP = yiaddr
-4. DHCPACK/DHCPNAK
+4. DHCPACK/DHCPNACK
 	1. DHCPACK: OK - il server conferma il binding *client id + addr*
 	2. DHCPNAK: KO - l'indirizzo è già stato occupato
 5. \[DHCPDECLINE\]: KO - il client nel mentre esegue test sull'occupazione dell'indirizzo IP. L'indirizzo potrebbe essere già occupato, ma il server potrebbe non averlo scoperto a causa di regole di firewalling.
@@ -81,26 +95,36 @@ client                    server
 
 #Nota esistono diverse varianti del protocollo, l'offerta potrebbe essere inviata in broadcast
 
+Perché è necessario che il client invii la DHCP REQUEST al server? Su una rete possono essere attivi più server DHCP sovrapposti per questioni di affidabilità e ridondanza. Tra le tante offerte ricevute il client ne seleziona una, di cui fa richiesta al server.
+
 >**Tempo di lease**: validità di assegnazione dell'indirizzo IP. A metà del tempo di lease viene reinviata una request. Se il server non riceve nessuna richiesta di rinnovo riutilizza l'indirizzo.
 
-#Attenzione il transaction id in tutto il flusso dei pacchetti rimane lo stesso durante tutto il flusso. Serve al client per filtrare il flusso. Il server potrebbe usare il chaddress. È anche una mitigazione per problematiche di sicurezza: in presenza di un server malevolo il client riceve più offer - situazione di race condition - e accetta la prima ricevuta. Il campo xid evita spamming da parte di server malevoli. Esiste una best-practice nelle reti: il server DHCP deve avere bassa latenza.
+#Attenzione il **transaction id** dei pacchetti rimane lo stesso durante tutto il flusso. Serve al client per filtrare il flusso. Il server potrebbe usare il chaddress. È anche una mitigazione per problematiche di sicurezza: in presenza di un server malevolo il client riceve più offer - situazione di race condition - e accetta la prima ricevuta. Il campo xid evita spamming da parte di server malevoli. Esiste una best-practice nelle reti: il server DHCP deve avere bassa latenza.
 ## Altre tipologie dei messaggi
-- DHCPRELEASE: il client libera l'indirizzo prima della disconnessione alla regte
-- DHCPINFORM: il client richiede parametri di configurazione che non sono
-
+- DHCPRELEASE: il client libera l'indirizzo prima della disconnessione alla rete
+- DHCPINFORM: il client richiede parametri di configurazione local che non sono stati immessi manualmente dall'amministratore. Viene usato quando, ad esempio, l'indirizzo IP è già noto all'host, da una precedente configurazione manuale.
 # Configurazione
+Configurazione di dhclient sul client: `/etc/dhcp/dhclient.conf`
+
 Il file `/etc/dhcp/dhcpd.conf` è il file di configurazione del server. Le prime opzioni sono quelle con scope globale; si nota perché sono a livello 0:
 - `option domain-name "domain.org"`
 - `option domain-name-servers 192.168.1.1` Solitamente il router di casa distribuisce se stesso perché agisce da local nameserver
 
-Blocco subnet, che permette di specificare un pool/range di indirizzi:
+Blocco-direttiva subnet, che permette di specificare un pool/range di indirizzi:
 ```
 subnet 192.168.0.0 netmask 255.255.255.0 {
-	range 192.168.0.100 192.168.0.200
+	range 192.168.0.100 192.168.0.200;
+	option subnet-mask 255.255.255.0;
 	option routers 192.168.0.253;
 }
 ```
 Nell'esempio sopra un blocco è configurato dinamicamente, mentre i restanti indirizzi staticamente. La seconda direttiva imposta il default gateway degli host.
+
+Altre direttive util:
+- `option domain-name`
+- `option domain-name-servers`
+- `default-lease-time`
+- `max-lease-time`
 
 In `/var/log/syslog` accentra le informazioni di logging dei servizi
 
@@ -122,7 +146,7 @@ dhclient -r eth0  # Release
 
 ## Configurazione statica degli host
 ```
-host {
+host hostname {
  hardware ethernet 02:04:06:10:79:8c;
  fixed-address 192.168.0.1;
 }
@@ -158,7 +182,10 @@ subnet ... {
 
 Il questa opzione vengono concatenate tutte le regole di routing. Questa regola sovrascrive l'opzione `option routers 192.168.0.253`
 
-Con la subnet mask `0` si invia la regole di default.
+Da RFC3442 se si configura routing classless, le altre regole verranno ignorate, come quelle imposte dalla direttiva `routers`. Con la subnet mask `0` si invia la regole di default:
+```
+option classless-routes 0,<gw>
+```
 
 ## Relay agent
 #Attenzione se il server si trova su una rete differente il client non può raggiungerlo. Perché i pacchetti broadcast a livello IP non vengono inoltrati.
@@ -174,8 +201,7 @@ Per inoltrare traffico DHCP serve un **Relay Agent** sul router. Questo servizio
 `/etc/default/isc-dhcp-relay`
 
 Info minima: in SERVERS inserisco i server (inserisco IP) verso i quali inoltrare richieste DHCP
-Posso anche definire le interfacce di ascolto.
-
+Posso anche definire le interfacce di ascolto. File di configurazione:
 ```
 service isc-dhcp-relay start
 ```

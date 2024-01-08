@@ -103,8 +103,16 @@ Esistono due argomenti passabili a `route`:
 route add default gw ADDR/CIDR
 ```
 
+## Aggregazione di regole di routing
+Vige la regola di risoluzione dei conflitti del **longest prefix** -> regole precise vincono su regole generiche
 ## Indirizzi /32
 Gli indirizzi ip con subnet mask 255.255.255.255 sono assegnati a host isolati, quando non si vogliono assegnare indirizzi contigui a quest'ultimo.
+
+Per fare routing su un link point-to-point:
+```bash
+ip route add x.x.x.x/32 dev ethX
+ip route add default via x.x.x.x
+```
 
 # Real World Access
 Il RWA - Real World Access - su Marionnet ci consente di connettere un host a Internet.
@@ -123,7 +131,7 @@ wget --no-check-certificate www.unimore.it
 ```
 
 #Nota che è un collegamento di livello 2
-#Attenzione corrette regole di routing
+#Attenzione corrette regole di routing. Non aggiungere mai regole di routing che coinvolgono indirizzi non routable su dispositivi "ext"/server e simili
 
 # Cicli
 In presenza di cicli il router che scarta il pacchetto lancia l'errore `Time to live exceeded`.
@@ -134,3 +142,7 @@ ip route get ADDRESS
 ```
 
 Risponde con la rotta che utilizza per raggiungere l'indirizzo richiesto.
+
+Per fare calcoli per il subnetting è conveniente usare `ipcalc`:
+- `ipcalc 192.168.1.1/24`
+- `ipcalc 192.168.1.1/24 -s 15 15` calcola due segmenti di rete dalla dimensione di 15 host l'uno

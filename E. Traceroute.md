@@ -14,8 +14,8 @@ In particolare, genera pacchetti con TTL progressivamente crescente, in modo che
 
 Cosa posso usare per il probing?
 - `-T` TCP SYN
-- `-I` ICMP ECHO
-*default* UDP 
+- `-I, --icmp` ICMP ECHO
+- Di default vengono inviati datagrammi UDP rivolti a porte improbabili (dalla 33434 in poi) e si attende un *destination port unreachable* dalla destinazione. 
 
 #Attenzione si compie una assunzione potenzialmente sbagliata: *il percorso seguito dai pacchetti in ogni istante di tempo (per ogni TTL) è lo stesso. Quindi due pacchetti successivi condividono un percorso prefisso comune.* -> può non essere vero dato che i protocolli di routing utilizzati su Internet sono dinamici. Si assume che la velocità di esecuzione di traceroute sia tale per cui le routes sia la stessa.
 

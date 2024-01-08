@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "d1aa106328aabc66",
+        "id": "51f62a9dbf536e83",
         "type": "tabs",
         "children": [
           {
-            "id": "38c2b33f04c8f213",
+            "id": "c5d4041fc380aa9c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "F. Socket Status.md",
+                "file": "L. DHCP.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "F. Socket Status.md",
+                "file": "L. DHCP.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "F. Socket Status.md",
+                "file": "L. DHCP.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "F. Socket Status.md"
+                "file": "L. DHCP.md"
               }
             }
           }
@@ -134,7 +134,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 256.5
+    "width": 369.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -146,44 +146,45 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "38c2b33f04c8f213",
+  "active": "c5d4041fc380aa9c",
   "lastOpenFiles": [
-    "E. Traceroute.md",
-    "F. Socket Status.md",
-    "7. ICMP.md",
-    "13. Protocolli di comunicazione sicuri.md",
-    "C. Router e subnetting.md",
-    "D. Wireshark.md",
-    "B. Dispositivi di LV2.md",
-    "I. Principi di sicurezza delle reti.md",
-    "H. NAT.md",
+    "Esercizi/Proj7_DHCP.mar",
     "Untitled.md",
+    "L. DHCP.md",
+    "I. Principi di sicurezza delle reti.md",
+    "Esercizi/Proj6_Firewall.mar",
+    "H. NAT.md",
+    "Esercizi/Proj5_NAT2.mar",
+    "Esercizi/Proj8_IPv6.mar",
+    "G. VLAN.md",
+    "7. ICMP.md",
+    "11. DNS.md",
+    "Esercizi/Proj4_VLAN3b.mar",
+    "Esercizi/Proj4_VLAN3a (copy 1).mar",
+    "Esercizi/Proj4_VLAN3a.mar",
     "A. Configurazione hosts.md",
+    "C. Router e subnetting.md",
+    "B. Dispositivi di LV2.md",
+    "Esercizi/Proj4_VLAN2b.mar",
+    "Esercizi/Proj4_VLAN2a (copy 1).mar",
+    "Esercizi/Proj4_VLAN2a.mar",
+    "10. VLAN.md",
     "14. Posta elettronica.md",
+    "Esercizi/Proj3_RoutingGerarchico.mar",
+    "E. Traceroute.md",
+    "13. Protocolli di comunicazione sicuri.md",
+    "F. Socket Status.md",
+    "D. Wireshark.md",
     "6. AS e routing su scala geografica.md",
     "9. Timeout e sliding window.md",
     "8. TCP e UDP.md",
     "N. User Mode Linux.md",
     "2. Stack di rete.md",
     "1. Introduzione.md",
-    "11. DNS.md",
     "12. HTTP.md",
-    "L. DHCP.md",
     "M. IPv6.md",
-    "Esercizi/Proj7_IPv6.mar",
-    "ls",
-    "Proj7_IPv6.mar",
-    "Esercizi/Proj5_NAT.mar",
-    "Esercizi/Proj3_Estensione.mar",
-    "G. VLAN.md",
-    "10. VLAN.md",
-    "Esercizi/Proj3_Routing.mar",
     "5. IP e routing.md",
-    "Esercizi/Proj4_VLAN.mar",
-    "4. Ethernet e switching.md",
-    "Esercizi/Proj3_Subnetting.mar",
     "Assets/PendingIfArp.png",
-    "Assets",
     "Assets/Redundancy.png",
     "Assets/TreeNet.png"
   ]
