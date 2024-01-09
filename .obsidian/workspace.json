@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "L. DHCP.md",
+                "file": "I. Principi di sicurezza delle reti.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "L. DHCP.md",
+                "file": "I. Principi di sicurezza delle reti.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "L. DHCP.md",
+                "file": "I. Principi di sicurezza delle reti.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "L. DHCP.md"
+                "file": "I. Principi di sicurezza delle reti.md"
               }
             }
           }
@@ -148,12 +148,17 @@
   },
   "active": "c5d4041fc380aa9c",
   "lastOpenFiles": [
+    "L. DHCP.md",
+    "14. Posta elettronica.md",
+    "M. IPv6.md",
+    "N. User Mode Linux.md",
+    "I. Principi di sicurezza delle reti.md",
+    "Esercizi/Sim2.mar",
+    "H. NAT.md",
+    "Esercizi/Sim1.mar",
     "Esercizi/Proj7_DHCP.mar",
     "Untitled.md",
-    "L. DHCP.md",
-    "I. Principi di sicurezza delle reti.md",
     "Esercizi/Proj6_Firewall.mar",
-    "H. NAT.md",
     "Esercizi/Proj5_NAT2.mar",
     "Esercizi/Proj8_IPv6.mar",
     "G. VLAN.md",
@@ -166,11 +171,7 @@
     "C. Router e subnetting.md",
     "B. Dispositivi di LV2.md",
     "Esercizi/Proj4_VLAN2b.mar",
-    "Esercizi/Proj4_VLAN2a (copy 1).mar",
-    "Esercizi/Proj4_VLAN2a.mar",
     "10. VLAN.md",
-    "14. Posta elettronica.md",
-    "Esercizi/Proj3_RoutingGerarchico.mar",
     "E. Traceroute.md",
     "13. Protocolli di comunicazione sicuri.md",
     "F. Socket Status.md",
@@ -178,11 +179,9 @@
     "6. AS e routing su scala geografica.md",
     "9. Timeout e sliding window.md",
     "8. TCP e UDP.md",
-    "N. User Mode Linux.md",
     "2. Stack di rete.md",
     "1. Introduzione.md",
     "12. HTTP.md",
-    "M. IPv6.md",
     "5. IP e routing.md",
     "Assets/PendingIfArp.png",
     "Assets/Redundancy.png",

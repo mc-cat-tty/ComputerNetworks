@@ -143,3 +143,5 @@ iptables-restore < source_file
 #Consiglio puoi usarlo per creare checkpoint durante la configurazione, salvando l'output su file che non siano `rules.v4`
 
 #Nota che `iptables` lavora su IPv4, la versione `ip6tables` lavora su IPv6
+# Well-known ports
+Una comoda lista delle porte note, sempre a disposizione su sistemi Linux, si trova in `/etc/services`
