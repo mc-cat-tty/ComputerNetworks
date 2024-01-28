@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "I. Principi di sicurezza delle reti.md",
+                "file": "1. Introduzione.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "I. Principi di sicurezza delle reti.md",
+                "file": "1. Introduzione.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "I. Principi di sicurezza delle reti.md",
+                "file": "1. Introduzione.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "I. Principi di sicurezza delle reti.md"
+                "file": "1. Introduzione.md"
               }
             }
           }
@@ -148,11 +148,19 @@
   },
   "active": "c5d4041fc380aa9c",
   "lastOpenFiles": [
+    "3. Rete LAN.md",
+    "4. Ethernet e switching.md",
+    "2. Stack di rete.md",
+    "1. Introduzione.md",
+    "5. IP e routing.md",
+    "7. ICMP.md",
+    "6. AS e routing su scala geografica.md",
+    "B. Dispositivi di LV2.md",
+    "N. User Mode Linux.md",
+    "I. Principi di sicurezza delle reti.md",
     "L. DHCP.md",
     "14. Posta elettronica.md",
     "M. IPv6.md",
-    "N. User Mode Linux.md",
-    "I. Principi di sicurezza delle reti.md",
     "Esercizi/Sim2.mar",
     "H. NAT.md",
     "Esercizi/Sim1.mar",
@@ -162,27 +170,20 @@
     "Esercizi/Proj5_NAT2.mar",
     "Esercizi/Proj8_IPv6.mar",
     "G. VLAN.md",
-    "7. ICMP.md",
     "11. DNS.md",
     "Esercizi/Proj4_VLAN3b.mar",
     "Esercizi/Proj4_VLAN3a (copy 1).mar",
     "Esercizi/Proj4_VLAN3a.mar",
     "A. Configurazione hosts.md",
     "C. Router e subnetting.md",
-    "B. Dispositivi di LV2.md",
     "Esercizi/Proj4_VLAN2b.mar",
     "10. VLAN.md",
     "E. Traceroute.md",
     "13. Protocolli di comunicazione sicuri.md",
     "F. Socket Status.md",
     "D. Wireshark.md",
-    "6. AS e routing su scala geografica.md",
     "9. Timeout e sliding window.md",
     "8. TCP e UDP.md",
-    "2. Stack di rete.md",
-    "1. Introduzione.md",
-    "12. HTTP.md",
-    "5. IP e routing.md",
     "Assets/PendingIfArp.png",
     "Assets/Redundancy.png",
     "Assets/TreeNet.png"
